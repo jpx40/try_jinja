@@ -31,6 +31,10 @@ http = "1.0.0"
 hypertext = "0.5.0"
 image = "0.24.8"
 itertools = "0.12.1"
+lambda-events = "0.0.0"
+lambda_http = "0.9.2"
+lambda_runtime = "0.9.1"
+libsql-client = { version = "0.33.4", features = ["http", "bytes", "futures-util"] }
 listenfd = "1.0.1"
 log = "0.4.20"
 maud = { version = "0.26.0", features = ["actix-web"] }
@@ -50,6 +54,7 @@ parking_lot = "0.12.1"
 r2d2 = "0.8.10"
 rad = "0.5.0"
 rand = "0.8.5"
+reqwest = "0.11.24"
 #reqwest = { version = "0.11.24", features = ["blocking"] }
 serde = { version = "1.0.196", features = ["derive"] }
 serde_json = "1.0.113"
