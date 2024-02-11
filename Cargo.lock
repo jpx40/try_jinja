@@ -914,6 +914,7 @@ dependencies = [
  "iana-time-zone",
  "js-sys",
  "num-traits",
+ "serde",
  "wasm-bindgen",
  "windows-targets 0.52.0",
 ]
@@ -2012,6 +2013,7 @@ dependencies = [
  "http 1.0.0",
  "http-body 1.0.0",
  "httparse",
+ "httpdate",
  "itoa",
  "pin-project-lite",
  "tokio",
@@ -2320,6 +2322,28 @@ name = "lambda-events"
 version = "0.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bc252f747631a8b89bed64c229787cb5f87818a22c596d03d375837b8ade8e5a"
+
+[[package]]
+name = "lambda-extension"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "36d2aefc387c2d9b2045296629b73a2a412af76d121d8367c162710934bfbab3"
+dependencies = [
+ "async-stream",
+ "bytes",
+ "chrono",
+ "http 1.0.0",
+ "http-body-util",
+ "hyper 1.1.0",
+ "hyper-util",
+ "lambda_runtime_api_client",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-stream",
+ "tower",
+ "tracing",
+]
 
 [[package]]
 name = "lambda_http"
@@ -4947,6 +4971,7 @@ dependencies = [
  "image",
  "itertools 0.12.1",
  "lambda-events",
+ "lambda-extension",
  "lambda_http",
  "lambda_runtime",
  "libsql-client",
