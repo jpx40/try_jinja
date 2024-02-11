@@ -5834,6 +5834,7 @@ dependencies = [
  "ureq",
  "url 2.5.0",
  "uuid 1.7.0",
+ "zstd",
 ]
 
 [[package]]
