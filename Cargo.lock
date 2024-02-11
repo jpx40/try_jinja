@@ -6576,6 +6576,7 @@ dependencies = [
  "serde_json",
  "sonic-rs",
  "sqlx",
+ "thiserror",
  "tokio",
  "tokio-stream",
  "toml",
