@@ -5623,6 +5623,7 @@ dependencies = [
  "actix-files",
  "actix-htmx",
  "actix-http",
+ "actix-router",
  "actix-rt",
  "actix-server",
  "actix-session",
