@@ -1,0 +1,51 @@
+[package]
+name = "try_jinja"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix = "0.13.3"
+actix-files = "0.6.5"
+actix-htmx = "0.3.0"
+actix-rt = "2.9.0"
+actix-server = "2.3.0"
+actix-session = "0.9.0"
+actix-web = { version = "4.5.1" }
+actix-web-lab = { version = "0.20.2", features = ["actix-files"] }
+anyhow = "1.0.79"
+cached = "0.48.1"
+chrono = "0.4.34"
+config = "0.14.0"
+crossbeam = "0.8.4"
+diesel = { version = "2.1.4", features = ["postgres", "r2d2", "sqlite"] }
+dotenvy = "0.15.7"
+flate2 = "1.0.28"
+futures = "0.3.30"
+futures-util = "0.3.30"
+html-node = "0.5.0"
+http = "1.0.0"
+hypertext = "0.5.0"
+image = "0.24.8"
+itertools = "0.12.1"
+listenfd = "1.0.1"
+log = "0.4.20"
+maud = { version = "0.26.0", features = ["actix-web"] }
+minijinja = { version = "1.0.12", features = ["json", "urlencode"] }
+minijinja-autoreload = "1.0.12"
+minijinja-embed = "1.0.12"
+moka = { version = "0.12.5", features = ["future", "sync", "log"] }
+openssl = { version = "0.10.63", features = ["v110"] }
+parking_lot = "0.12.1"
+r2d2 = "0.8.10"
+rad = "0.5.0"
+rand = "0.8.5"
+serde = { version = "1.0.196", features = ["derive"] }
+serde_json = "1.0.113"
+sonic-rs = "0.3.2"
+sqlx = { version = "0.7.3", features = ["runtime-tokio-rustls", "postgres", "sqlite"] }
+tokio = { version = "1.36.0", features = ["full"] }
+tokio-stream = "0.1.14"
+toml = "0.8.10"
+tracing-subscriber = "0.3.18"
