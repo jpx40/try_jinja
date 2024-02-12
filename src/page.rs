@@ -102,33 +102,33 @@ async fn package_table(
     url_next: String,
 ) -> String {
     let html = html! {
-    div #table  class="container mx-auto content-center justify-center" style="text-align: center;
-    justify-content: center;  align-items: center;" {
-          h1 class="text-2xl font-bold" {"Arch Linux Packages"}
-              div class="container mx-auto content-center" style="text-align: center;
-    justify-content: center; align-items: center;" {
-              table class="table-auto mx-auto content-center" {
-          thead { tr {
-              th class="px-4 py-2" { "name" }
-           th class="px-4 py-2" { "version" }
-           th class="px-4 py-2" { "size" }
-          }
-          tbody {
-          @for item in pkg[num as usize - 1 ].clone() {
-          tr {
-          td class="border px-4 py-2" { (item.name)}
-          td class="border px-4 py-2" { (trim_version(item.size.to_string()))}
-          td class="border px-4 py-2" { (item.version)}
+        div #table  class="container mx-auto content-center justify-center" style="text-align: center;
+        justify-content: center;  align-items: center;" {
+              h1 class="text-2xl font-bold" {"Arch Linux Packages"}
+                  div class="container mx-auto content-center" style="text-align: center;
+                   justify-content: center; align-items: center;" {
+                  table class="table-auto mx-auto content-center" {
+              thead { tr {
+                  th class="px-4 py-2" { "name" }
+               th class="px-4 py-2" { "version" }
+               th class="px-4 py-2" { "size" }
+              }
+              tbody {
+              @for item in pkg[num as usize - 1 ].clone() {
+              tr {
+              td class="border px-4 py-2" { (item.name)}
+              td class="border px-4 py-2" { (trim_version(item.size.to_string()))}
+              td class="border px-4 py-2" { (item.version)}
 
-          } }
-               }}}
-      }
-    button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" hx-get=(url_prev) hx-target="#table" hx-swap="innerHTML" { "Previous Page"}
+              } }
+        }}}
+    }
+        button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" hx-get=(url_prev) hx-target="#table" hx-swap="innerHTML" { "Previous Page"}
 
 
-      button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" hx-get=(url_next) hx-target="#table" hx-swap="innerHTML"  { "Next Page"}
-                 }
-          };
+          button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" hx-get=(url_next) hx-target="#table" hx-swap="innerHTML"  { "Next Page"}
+                     }
+              };
 
     html.into_string()
 }
