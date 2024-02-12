@@ -127,5 +127,6 @@ uuid = "1.7.0"
 zstd = "0.13.0"
 once_cell = "1.19.0"
 tera = "1.19.1"
+indicatif = "0.17.8"
 #tera = "1.19.1"
 #askama = { version = "0.12.1", features = ["with-actix-web"] }
