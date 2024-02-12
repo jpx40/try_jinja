@@ -5,7 +5,7 @@ mod models;
 mod page;
 mod schema;
 use actix_files::Files;
-use actix_htmx::{Htmx, HtmxMiddleware, TriggerType};
+
 use actix_web::{
     error, get, middleware, post,
     web::{self, service, Data},
@@ -15,11 +15,7 @@ use actix_web::{
 //use cached::Expiration;
 use diesel::{pg, PgConnection};
 use listenfd::ListenFd;
-use moka::{
-    future::{Cache, FutureExt},
-    notification::ListenerFuture,
-    Expiry,
-};
+
 use r2d2;
 use serde::de::value;
 use std::convert::TryInto;

@@ -14,23 +14,13 @@ use actix_web::{
 };
 use diesel::pg;
 use diesel::pg::PgConnection;
-use html_node::html as rsx;
-use hypertext::Renderable;
+
 use itertools::Itertools;
 use maud::{html, Markup, DOCTYPE};
-use moka::{
-    future::{Cache, FutureExt},
-    notification::ListenerFuture,
-    Expiry,
-};
-
 use r2d2::PooledConnection;
 use serde::Deserialize;
 use serde_json::value;
 use std::string::String;
-pub fn test() -> String {
-    rsx! {}.to_string()
-}
 
 #[get("/")]
 pub async fn index() -> Result<HttpResponse, Error> {

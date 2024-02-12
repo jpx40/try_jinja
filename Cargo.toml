@@ -30,14 +30,14 @@ actix = { version = "0.13.3" }
 actix-files = "0.6.5"
 actix-htmx = { optional = true }
 actix-http = "3.6.0"
-actix-router = "0.5.2"
-actix-rt = "2.9.0"
+actix-router = { optional = true, version = "0.5.2" }
+actix-rt = { optional = true }
 actix-server = "2.3.0"
 actix-session = "0.9.0"
 actix-web = { version = "4.5.1" }
 actix-web-lab = { version = "0.20.2", features = ["actix-files"] }
 anyhow = "1.0.79"
-awc = "3.4.0"
+awc = { optional = true, version = "3.4.0" }
 chrono = "0.4.34"
 clickhouse = { optional = true }
 config = "0.14.0"
@@ -60,7 +60,7 @@ futures-util = "0.3.30"
 http = "1.0.0"
 hypertext = { version = "*", optional = true }
 
-image = "0.24.8"
+image = { optional = true, version = "0.24.8" }
 itertools = "0.12.1"
 lambda-events = { version = "0.0.0", optional = true }
 
@@ -76,14 +76,15 @@ libsql-client = { version = "0.33.4", features = [
   "bytes",
   "futures-util",
 ], optional = true }
-lightningcss = "1.0.0-alpha.53"
-lightningcss-derive = "1.0.0-alpha.42"
+lightningcss = { optional = true, version = "1.0.0-alpha.53" }
+lightningcss-derive = { optional = true, version = "1.0.0-alpha.42" }
 listenfd = "1.0.1"
 log = "0.4.20"
 
 maud = { version = "0.26.0", features = ["actix-web"] }
 mdxjs = { version = "0.1.23", optional = true }
 
+reqwest = { version = "0.11.24", features = ["blocking"], optional = true }
 minijinja = { version = "1.0.12", features = [
   "json",
   "urlencode",
@@ -101,15 +102,13 @@ moka = { version = "0.12.5", features = [
 ], optional = true }
 openssl = { version = "0.10.63", features = ["v110"], optional = true }
 parking_lot = "0.12.1"
-pulldown-cmark = "0.10.0"
+pulldown-cmark = { optional = true }
 r2d2 = "0.8.10"
-rad = "0.5.0"
-rand = "0.8.5"
-reqwest = "0.11.24"
-#reqwest = { version = "0.11.24", features = ["blocking"] }
+rad = { optional = true }
+rand = { optional = true, version = "*" }
 serde = { version = "1.0.196", features = ["derive"] }
 serde_json = "1.0.113"
-sonic-rs = "0.3.2"
+sonic-rs = { optional = true, version = "0.3.2" }
 sqlx = { version = "0.7.3", features = [
   "runtime-tokio-rustls",
   "postgres",
