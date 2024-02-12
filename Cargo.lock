@@ -527,6 +527,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c48f0051a4b4c5e0b6d365cd04af53aeaa209e3cc15ec2cdb69e73cc87fbd0dc"
 dependencies = [
  "memchr",
+ "regex-automata",
  "serde",
 ]
 
@@ -2586,6 +2587,7 @@ dependencies = [
  "actix-web",
  "actix-web-lab",
  "anyhow",
+ "bstr",
  "chrono",
  "crossbeam",
  "crossbeam-channel",
