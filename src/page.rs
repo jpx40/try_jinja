@@ -1,6 +1,8 @@
 use crate::db;
 use crate::models::*;
 use crate::schema::complain::content;
+use crate::Template;
+use crate::ENV;
 // use crate::schema::people::id;
 // use crate::schema::users::id;
 use crate::AppState;
@@ -14,17 +16,24 @@ use actix_web::{
 };
 use diesel::pg;
 use diesel::pg::PgConnection;
-
 use itertools::Itertools;
 use maud::{html, Markup, DOCTYPE};
+use minijinja::{context, path_loader, Environment};
 use r2d2::PooledConnection;
 use serde::Deserialize;
 use serde_json::value;
 use std::string::String;
+//use tera::Tera;
 
 #[get("/")]
-pub async fn index() -> Result<HttpResponse, Error> {
-    let rendered = "Test";
+pub async fn index(tmpl: web::Data<Template>) -> Result<HttpResponse, Error> {
+    let templ = tmpl.get_template("base.html").unwrap();
+
+    let body = r##"  <body hx-get="api/page/pkgtable/1" hx-trigger="load" hx-target="#content" hx-swap="innerHTML">
+    <div id="content">
+    </div> </body> "##;
+    let ctx = context!(body);
+    let rendered = templ.render(&ctx).unwrap();
     Ok(HttpResponse::Ok()
         .content_type(ContentType::html())
         .body(rendered))
