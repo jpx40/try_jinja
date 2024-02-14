@@ -151,7 +151,7 @@ fn make_env() -> Environment<'static> {
     let mut env = Environment::new();
     // minijinja_embed::load_templates!(&mut env);
 
-    /s add m/ #[cfg(feature = "bundled")]
+    // #[cfg(feature = "bundled")]
     // {
     //     minijinja_embed::load_templates!(&mut env);
     // }

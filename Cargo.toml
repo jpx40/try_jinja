@@ -132,5 +132,6 @@ termcolor = "1.4.1"
 bstr = "1.9.0"
 sea-query-diesel = { version = "0.1.0", features = ["sqlite", "with-json", "with-chrono", "with-uuid", "with-time", "postgres", "postgres-array", "with-rust_decimal-postgres"] }
 sea-query = "0.30.7"
+serde_html_form = "0.2.4"
 #tera = "1.19.1"
 #askama = { version = "0.12.1", features = ["with-actix-web"] }

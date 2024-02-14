@@ -2893,6 +2893,7 @@ dependencies = [
  "sea-query",
  "sea-query-diesel",
  "serde",
+ "serde_html_form",
  "serde_json",
  "tera",
  "termcolor",
