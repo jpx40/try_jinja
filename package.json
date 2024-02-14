@@ -1,0 +1,21 @@
+{
+  "name": "try_jinja",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@open-wc/lit-helpers": "0.4.0-next.1",
+    "hybrids": "^8.2.10",
+    "lit": "^3.1.2",
+    "unocss": "^0.58.5"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

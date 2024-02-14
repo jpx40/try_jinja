@@ -1,0 +1,9 @@
+<script type="module">
+  import {define, html} from 'https://esm.sh/hybrids@^8';
+
+  define({
+    tag: "hello-world",
+    name: '',
+    content: ({name}) => html`<p>Hello ${name}!</p>`,
+  });
+</script>
