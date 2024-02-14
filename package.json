@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@lit/context": "^1.1.0",
     "@nanostores/lit": "^0.2.0",
     "@nanostores/query": "^0.2.10",
     "@nanostores/router": "^0.14.0",
