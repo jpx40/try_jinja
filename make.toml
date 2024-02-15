@@ -1,0 +1,54 @@
+[tasks.format]
+install_crate = "rustfmt"
+command = "cargo"
+args = ["fmt", "--", "--emit=files"]
+
+[tasks.clean]
+command = "cargo"
+args = ["clean"]
+
+[tasks.build]
+command = "cargo"
+args = ["build"]
+dependencies = ["clean"]
+
+[tasks.test]
+command = "cargo"
+args = ["test"]
+dependencies = ["clean"]
+
+[tasks.build-flow]
+dependencies = ["format", "build", "test"]
+
+
+[tasks.run]
+command = "cargo"
+args = ["run"]
+
+[tasks.build-js]
+command = "esbuild"
+args = ["js/*", "--bundle", "--minify", "--outdir=./static/lib"]
+
+
+[tasks.build-css]
+dependencies = ["clean-css"]
+command = "npx"
+args = [
+  "lightningcss",
+  "--minify",
+  "--bundle",
+  "--targets",
+  "'>=0.25%'",
+  "./style/*",
+  "./static/style/bundle.css",
+]
+
+
+[tasks.clean-css]
+command = "rm"
+args = ["./static/style/bundle.css"]
+
+
+[tasks.flow]
+dependencies = ["build-css", "build-js", "run"]
+watch = true
