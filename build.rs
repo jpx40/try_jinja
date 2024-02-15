@@ -6,13 +6,14 @@ fn main() {
 fn css_build() {
     //    println!("cargo:rerun-if-changed=css/input.css");
     std::process::Command::new("sh")
-        .args(&[
+        .args([
             "npx",
             "lightningcss",
             "--minify",
             " --bundle",
-            "--targets style/*",
+            "--targets",
             "'>= 0.25%'",
+            "style/*",
             "-o static/style/bundle.css",
         ])
         .status()
