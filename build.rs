@@ -10,9 +10,11 @@ fn css_build() {
             "npx",
             "lightningcss",
             "--minify",
-            " --bundle --targets '>= 0.25%' input.css",
+            " --bundle",
+            "--targets style/*",
+            "'>= 0.25%'",
+            "-o static/style/bundle.css",
         ])
-        // .current_dir("css")
         .status()
         .expect("failed to execute npm run build");
 }
