@@ -30,10 +30,23 @@
                                 // < !-- } -->
 </script>
 
-<body hx-get="{{url}}" hx-trigger="load" hx-target="#content" hx-swap="innerHTML">
+<body hx-get="{{url}}" hx-trigger="load" hx-target="#content" hx-swap="innerHTML" class="text-center">
+
+
+    <h1>{{header}}</h1>
+    <div> <input @keydown="event => event.code === 'Enter' && submit()" hx-post="{{url}}" hx-trigger="submit"
+            class="input mt-10 mb-10 bg-gray-100 p-2 rounded border focus:ring-blue-500 focus:border-blue-500"
+            type="text" hx-swap="innerHTML" /> </div>
     <div id="content">
     </div>
 </body>
+
+
+
+<script> function submit() {
+        let url = window.location.href;
+        fetch(url);
+    }</script>
 
 
 </html>

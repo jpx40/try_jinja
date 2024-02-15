@@ -7,6 +7,7 @@ use crate::ENV;
 // use crate::schema::users::id;
 use crate::AppState;
 use actix_files::NamedFile;
+use actix_http::header::Header;
 use actix_session::Session;
 use actix_web::body;
 use actix_web::http::header::CacheControl;
@@ -34,7 +35,8 @@ pub async fn index(tmpl: web::Data<Template>) -> Result<HttpResponse, Error> {
     </div> </body> "##;
     let id = 1;
     let url = format!("api/page/pkgtable/{}", id);
-    let ctx = context!(url => url, title => "dev");
+    let header = "Arch Linux Packages";
+    let ctx = context!(url => url, title => "dev", header);
     let rendered = templ.render(&ctx).unwrap();
     Ok(HttpResponse::Ok()
         .content_type(ContentType::html())
@@ -109,10 +111,10 @@ async fn package_table(
     let html = html! {
         div #table  class="container mx-auto content-center justify-center" style="text-align: center;
         justify-content: center;  align-items: center;" {
-              h1 class="text-2xl font-bold" {"Arch Linux Packages"}
-                  div class="container mx-auto content-center" style="text-align: center;
+               div class="container mx-auto content-center" style="text-align: center;
                    justify-content: center; align-items: center;" {
-                  table class="table-auto mx-auto content-center" {
+                  table class="table border-separate border-spacing-2 border border-slate-500
+        mx-auto content-center text-center table-fixed table-bordered" {
               thead { tr {
                   th class="px-4 py-2" { "name" }
                th class="px-4 py-2" { "version" }
