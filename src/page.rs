@@ -113,8 +113,7 @@ async fn package_table(
         justify-content: center;  align-items: center;" {
                div class="container mx-auto content-center" style="text-align: center;
                    justify-content: center; align-items: center;" {
-                  table class="table border-separate border-spacing-2 border border-slate-500
-        mx-auto content-center text-center table-fixed table-bordered" {
+                  table class="table  table-fixed content-center text-center table-fixed table-bordered" {
               thead { tr {
                   th class="px-4 py-2" { "name" }
                th class="px-4 py-2" { "version" }
