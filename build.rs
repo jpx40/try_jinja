@@ -51,7 +51,7 @@ fn css_build() {
 }
 
 fn build() {
-    clear_css();
+    //clear_css();
     css_build();
     js_build();
 }
