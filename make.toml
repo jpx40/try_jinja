@@ -37,12 +37,18 @@ command = "script/css.sh"
 #dependencies = ["clean-css"]
 #npx lightningcss --minify --bundle --targets '>=0.25%' ./style/* --output-file ./static/style/bundle.css
 [tasks.clean-css]
-command = "rm"
-args = ["static/style/*"]
+command = "bash"
+args = ["rm", "static/style/*"]
+watch = false
 
 
 [tasks.flow]
 #dependencies = ["build-css", "build-js", "run"]
 
-run_task = { name = ["clean-css", "build-css", "build-js", "run"] }
-watch = true
+watch = { ignore_pattern = "examples/files/*", watch = [
+  "./style/",
+  "./js/",
+  "./src/",
+  "./script",
+] }
+run_task = { name = ["build-css", "build-js", "run"] }
