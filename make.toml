@@ -42,5 +42,5 @@ args = ["./static/style/bundle.css"]
 
 
 [tasks.flow]
-dependencies = ["build-css", "build-js", "run"]
+dependencies = ["clean-css", "build-css", "build-js", "run"]
 watch = true
