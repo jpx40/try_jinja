@@ -31,19 +31,11 @@ args = ["js/*", "--bundle", "--minify", "--outdir=./static/lib"]
 
 
 [tasks.build-css]
-dependencies = ["clean-css"]
-command = "npx"
-args = [
-  "lightningcss",
-  "--minify",
-  "--bundle",
-  "--targets",
-  "'>=0.25%'",
-  "./style/*",
-  "./static/style/bundle.css",
-]
+command = "./script//css.sh"
 
 
+#dependencies = ["clean-css"]
+#npx lightningcss --minify --bundle --targets '>=0.25%' ./style/* --output-file ./static/style/bundle.css
 [tasks.clean-css]
 command = "rm"
 args = ["./static/style/bundle.css"]
