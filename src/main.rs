@@ -5,6 +5,7 @@ mod models;
 mod page;
 mod schema;
 use actix_files::Files;
+use actix_web::http::header::{CacheControl, CacheDirective};
 use actix_web::{
     error, get, middleware, post,
     web::{self, service, Data},
@@ -94,14 +95,14 @@ async fn start() -> std::io::Result<()> {
     //
     //
     //
-    let _files_service = Files::new("/", "./static").path_filter(|path, _| {
-        path.components().count() == 1
-            && Path::new("./static")
-                .join(path)
-                .symlink_metadata()
-                .map(|m| !m.file_type().is_symlink())
-                .unwrap_or(false)
-    });
+    // let _files_service = Files::new("/", "./static").path_filter(|path, _| {
+    //     path.components().count() == 1
+    //         && Path::new("./static")
+    //             .join(path)
+    //             .symlink_metadata()
+    //             .map(|m| !m.file_type().is_symlink())
+    //             .unwrap_or(false)
+    // });
 
     //  let expiry = cached::MyExpiry;
     // let eviction_listener = |key, _value, cause| {
@@ -111,6 +112,7 @@ async fn start() -> std::io::Result<()> {
     // let env = reloader.acquire_env().unwrap();
     // let template = env.get_template("index.html").unwrap();
 
+    // "Cache-Control", "max-age=86400"
     let host = env::var("HOST").unwrap_or_else(|_| String::from("default_host"));
     let port = env::var("PORT").unwrap_or_else(|_| String::from("default_port"));
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL not found.");
@@ -131,6 +133,22 @@ async fn start() -> std::io::Result<()> {
                 Files::new("static", "./static")
                     .show_files_listing()
                     .prefer_utf8(true),
+            )
+            .service(
+                web::scope("/static")
+                    .wrap(middleware::DefaultHeaders::new().add(("Cache-Control", "max-age=0")))
+                    .service(
+                        Files::new("/", "./static")
+                            .path_filter(|path, _| {
+                                path.components().count() == 1
+                                    && Path::new("./static")
+                                        .join(path)
+                                        .symlink_metadata()
+                                        .map(|m| !m.file_type().is_symlink())
+                                        .unwrap_or(false)
+                            })
+                            .prefer_utf8(true),
+                    ),
             )
             .wrap(middleware::Logger::default())
             //  .wrap(HtmxMiddleware)

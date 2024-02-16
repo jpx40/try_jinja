@@ -45,7 +45,7 @@ watch = false
 [tasks.flow]
 #dependencies = ["build-css", "build-js", "run"]
 
-watch = { ignore_pattern = "examples/files/*", watch = [
+watch = { ignore_pattern = "examples/files/*", parallel = true, watch = [
   "./style/",
   "./js/",
   "./src/",

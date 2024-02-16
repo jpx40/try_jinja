@@ -10,7 +10,8 @@ use actix_files::NamedFile;
 use actix_http::header::Header;
 use actix_session::Session;
 use actix_web::body;
-use actix_web::http::header::CacheControl;
+
+use actix_web::http::header::{CacheControl, CacheDirective};
 use actix_web::{
     dev, error, get, http::header::ContentType, http::StatusCode, middleware::ErrorHandlerResponse,
     web, web::Data, Error, HttpResponse, Responder, Result,
@@ -28,6 +29,9 @@ use std::string::String;
 
 #[get("/")]
 pub async fn index(tmpl: web::Data<Template>) -> Result<HttpResponse, Error> {
+    let mut builder = HttpResponse::Ok();
+    builder.insert_header(CacheControl(vec![CacheDirective::MaxAge(86400u32)]));
+
     let templ = tmpl.get_template("base.html").unwrap();
 
     let body = r##"  <body hx-get="api/page/pkgtable/1" hx-trigger="load" hx-target="#content" hx-swap="innerHTML">

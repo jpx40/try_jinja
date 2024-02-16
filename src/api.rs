@@ -3,6 +3,7 @@ use crate::page;
 use actix_web_lab::{extract::Path, respond::Html};
 
 use crate::broadcast::Broadcaster;
+use actix_web::http::header::{CacheControl, CacheDirective};
 use actix_web::{
     error, get, middleware, post,
     web::{self, service},
