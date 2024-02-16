@@ -31,7 +31,7 @@ args = ["js/*", "--bundle", "--minify", "--outdir=./static/lib"]
 
 
 [tasks.build-css]
-command = "./script//css.sh"
+command = "script/css.sh"
 
 
 #dependencies = ["clean-css"]
@@ -42,5 +42,7 @@ args = ["./static/style/bundle.css"]
 
 
 [tasks.flow]
-dependencies = ["clean-css", "build-css", "build-js", "run"]
+#dependencies = ["build-css", "build-js", "run"]
+
+run_task = { name = ["build-css", "build-js", "run"] }
 watch = true
