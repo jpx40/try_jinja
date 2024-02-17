@@ -134,6 +134,6 @@ bstr = "1.9.0"
 sea-query = "0.30.7"
 serde_html_form = "0.2.4"
 rug = { version = "1.24.0", features = ["serde"] }
-sea-orm = { version = "0.12.14", features = ["sqlx-sqlite", "sqlx-postgres"] }
+sea-orm = { version = "0.12.14", features = ["sqlx-sqlite", "sqlx-postgres", "runtime-tokio-native-tls"] }
 #tera = "1.19.1"
 #askama = { version = "0.12.1", features = ["with-actix-web"] }
