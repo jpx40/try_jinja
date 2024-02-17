@@ -13,13 +13,11 @@ use actix_web::{
 };
 use minijinja::*;
 use minijinja_autoreload::AutoReloader;
-use tera::Tera;
 //use cached::Expiration;
 
 use listenfd::ListenFd;
 
 use once_cell::sync::Lazy;
-use r2d2;
 use serde::de::value;
 use std::convert::TryInto;
 use std::time::{Duration, Instant};
@@ -125,8 +123,6 @@ async fn start() -> std::io::Result<()> {
     let template: Template = make_env();
     let mut listenfd = ListenFd::from_env();
     let mut server = HttpServer::new(move || {
-        let mut templates = Tera::new("templates/**/*").expect("errors in tera templates");
-        templates.autoescape_on(vec!["html"]);
         //        let pool = Arc::new(pool_conn);
         let app_state = AppState { db: pool.clone() };
         App::new()
