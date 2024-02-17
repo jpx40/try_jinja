@@ -1,1 +1,1 @@
-Basic Practice woth actix and minijinja.
+Basic Practice with actix and minijinja.
