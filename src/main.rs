@@ -3,7 +3,7 @@ mod broadcast;
 mod db;
 mod models;
 mod page;
-mod schema;
+
 use actix_files::Files;
 use actix_web::http::header::{CacheControl, CacheDirective};
 use actix_web::{
@@ -15,10 +15,9 @@ use minijinja::*;
 use minijinja_autoreload::AutoReloader;
 use tera::Tera;
 //use cached::Expiration;
-use diesel::{pg, PgConnection};
+
 use listenfd::ListenFd;
 
-use diesel::prelude::*;
 use once_cell::sync::Lazy;
 use r2d2;
 use serde::de::value;
@@ -40,7 +39,7 @@ use anyhow::{anyhow, Context};
 pub struct AppState {
     //pub db: sqlx::Pool<sqlx::Sqlite>,
     // pub db: Arc<SqlitePool>,
-    pub db: db::DbPool,
+    pub db: sqlx::Pool<sqlx::Sqlite>,
 }
 
 pub static ENV: Lazy<Environment<'static>> = Lazy::new(|| {
@@ -119,13 +118,15 @@ async fn start() -> std::io::Result<()> {
     let port = env::var("PORT").unwrap_or_else(|_| String::from("default_port"));
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL not found.");
     let server_url = format!("{}:{}", host, port);
+    let pool = db::connect(&db_url)
+        .await
+        .unwrap_or_else(|_| panic!("Failed to connect to database."));
 
     let template: Template = make_env();
     let mut listenfd = ListenFd::from_env();
     let mut server = HttpServer::new(move || {
         let mut templates = Tera::new("templates/**/*").expect("errors in tera templates");
         templates.autoescape_on(vec!["html"]);
-        let pool = db::connect(&db_url);
         //        let pool = Arc::new(pool_conn);
         let app_state = AppState { db: pool.clone() };
         App::new()

@@ -1,6 +1,6 @@
 use crate::db;
 use crate::models::*;
-use crate::schema::complain::content;
+
 use crate::Template;
 use crate::ENV;
 // use crate::schema::people::id;
@@ -10,15 +10,12 @@ use actix_files::NamedFile;
 use actix_http::header::Header;
 use actix_session::Session;
 use actix_web::body;
-use diesel::prelude::*;
-
 use actix_web::http::header::{CacheControl, CacheDirective};
 use actix_web::{
     dev, error, get, http::header::ContentType, http::StatusCode, middleware::ErrorHandlerResponse,
     web, web::Data, Error, HttpResponse, Responder, Result,
 };
-use diesel::pg;
-use diesel::pg::PgConnection;
+
 use itertools::Itertools;
 use maud::{html, Markup, DOCTYPE};
 use minijinja::{context, path_loader, Environment};
@@ -59,9 +56,9 @@ pub async fn page(
     app_state: web::Data<AppState>,
 ) -> Result<HttpResponse, Error> {
     let pool = &app_state.db;
-    let mut conn: db::DbConn = pool.get().unwrap();
+    let mut conn: &sqlx::Pool<sqlx::Sqlite> = pool;
     let mut pkg_list: Vec<Package>;
-    match db::fetch_packages(&mut conn).await {
+    match db::execute_get_all_pkg(&conn).await {
         Ok(x) => {
             pkg_list = x;
         }

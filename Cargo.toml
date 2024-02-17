@@ -55,8 +55,6 @@ crossbeam-queue = "0.3.11"
 #   "sqlite",
 # ], optional = true }
 dotenvy = "0.15.7"
-# duckdb = { optional = true }
-# flate2 = "1.0.28"
 futures = "0.3.30"
 futures-util = "0.3.30"
 http = "1.0.0"
@@ -134,6 +132,8 @@ bstr = "1.9.0"
 sea-query = "0.30.7"
 serde_html_form = "0.2.4"
 rug = { version = "1.24.0", features = ["serde"] }
-sea-orm = { version = "0.12.14", features = ["sqlx-sqlite", "sqlx-postgres", "runtime-tokio-native-tls"] }
+sea-orm = { version = "0.12.14", features = ["sqlx-sqlite", "sqlx-postgres", "runtime-tokio-native-tls", "with-json", "debug-print"] }
+sqlx = { version = "0.7.3", features = ["sqlite", "postgres", "runtime-tokio-native-tls"] }
+sea-query-binder = { version = "0.5.0", features = ["runtime-async-std-native-tls", "sqlx-sqlite", "with-json", "sqlx", "with-time", "sqlx-postgres", "with-chrono"] }
 #tera = "1.19.1"
 #askama = { version = "0.12.1", features = ["with-actix-web"] }

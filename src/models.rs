@@ -1,11 +1,9 @@
 use chrono::prelude::*;
-use diesel::prelude::*;
+use serde::{Deserialize, Serialize};
+use sqlx::FromRow;
+use std::collections::HashMap;
 
-#[derive(Insertable, Queryable, Selectable)]
-#[diesel(table_name = crate::schema::packages)]
-#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
-#[diesel(check_for_backend(diesel::pg::Pg))]
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize, FromRow)]
 pub struct Package {
     pub name: String,
     pub version: String,
