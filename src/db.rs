@@ -1,6 +1,7 @@
 use diesel::pg;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
+use diesel::prelude::*;
 use diesel::r2d2::ConnectionManager;
 use diesel::r2d2::Pool;
 use diesel::{connection, prelude::*};
@@ -15,18 +16,18 @@ use tokio;
 
 use crate::models::Package;
 const BIND_LIMIT: usize = 32766;
-pub type DbPool = r2d2::Pool<ConnectionManager<PgConnection>>;
-pub type DbConn = r2d2::PooledConnection<ConnectionManager<PgConnection>>;
+pub type DbPool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
+pub type DbConn = r2d2::PooledConnection<ConnectionManager<SqliteConnection>>;
 
 use crate::schema::packages::dsl::*;
 
 //https://stackoverflow.com/questions/27435839/how-to-list-active-connections-on-postgresql
-pub fn connect(db_url: &str) -> r2d2::Pool<diesel::r2d2::ConnectionManager<pg::PgConnection>> {
+pub fn connect(db_url: &str) -> r2d2::Pool<diesel::r2d2::ConnectionManager<SqliteConnection>> {
     dotenv().ok();
     // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     //let connection =    PgConnection::establish(&db_url).unwrap_or_else(|_| panic!("Error connecting to {}", db_url))
 
-    let manager = ConnectionManager::<PgConnection>::new(db_url);
+    let manager = ConnectionManager::<SqliteConnection>::new(db_url);
     Pool::builder()
         .max_size(4)
         .test_on_check_out(true)
@@ -35,7 +36,7 @@ pub fn connect(db_url: &str) -> r2d2::Pool<diesel::r2d2::ConnectionManager<pg::P
 }
 
 pub fn execute(
-    conn: &mut PgConnection,
+    conn: &mut SqliteConnection,
     pkg_list: Vec<Package>,
 ) -> Result<diesel::QueryResult<usize>, diesel::result::Error> {
     Ok(diesel::insert_into(packages)
