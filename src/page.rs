@@ -10,6 +10,7 @@ use actix_files::NamedFile;
 use actix_http::header::Header;
 use actix_session::Session;
 use actix_web::body;
+use diesel::prelude::*;
 
 use actix_web::http::header::{CacheControl, CacheDirective};
 use actix_web::{

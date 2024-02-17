@@ -7,7 +7,7 @@ edition = "2021"
 
 [features]
 
-default = ["diesel", "openssl", "hypertext"]
+default = ["openssl", "hypertext"]
 
 #bundled = []# clickhouse-db = ["clickhouse"]
 # aws = [
@@ -19,7 +19,7 @@ default = ["diesel", "openssl", "hypertext"]
 # ]
 # couch_db = ["couchdb"]
 # curl_http = ["curl"]
-diesel_db = ["diesel"]
+
 # sqlx_db = ["sqlx"]
 # duck_db = ["duckdb"]
 htmx = ["actix-htmx", "html-node", "hypertext"]
@@ -49,11 +49,11 @@ crossbeam-channel = "0.5.11"
 crossbeam-epoch = "0.9.18"
 crossbeam-queue = "0.3.11"
 # curl = { optional = true }
-diesel = { version = "2.1.4", features = [
-  "postgres",
-  "r2d2",
-  "sqlite",
-], optional = true }
+# diesel = { version = "2.1.4", features = [
+#   "postgres",
+#   "r2d2",
+#   "sqlite",
+# ], optional = true }
 dotenvy = "0.15.7"
 # duckdb = { optional = true }
 # flate2 = "1.0.28"
@@ -130,18 +130,10 @@ tera = "1.19.1"
 indicatif = "0.17.8"
 termcolor = "1.4.1"
 bstr = "1.9.0"
-sea-query-diesel = { version = "0.1.0", features = [
-  "sqlite",
-  "with-json",
-  "with-chrono",
-  "with-uuid",
-  "with-time",
-  "postgres",
-  "postgres-array",
-  "with-rust_decimal-postgres",
-] }
+
 sea-query = "0.30.7"
 serde_html_form = "0.2.4"
 rug = { version = "1.24.0", features = ["serde"] }
+sea-orm = { version = "0.12.14", features = ["sqlx-sqlite", "sqlx-postgres"] }
 #tera = "1.19.1"
 #askama = { version = "0.12.1", features = ["with-actix-web"] }

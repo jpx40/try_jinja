@@ -29,7 +29,7 @@ pub fn connect(db_url: &str) -> r2d2::Pool<diesel::r2d2::ConnectionManager<Sqlit
 
     let manager = ConnectionManager::<SqliteConnection>::new(db_url);
     Pool::builder()
-        .max_size(4)
+        .max_size(1)
         .test_on_check_out(true)
         .build(manager)
         .expect("Could not build connection pool")
