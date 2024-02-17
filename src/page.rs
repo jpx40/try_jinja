@@ -19,7 +19,6 @@ use actix_web::{
 use itertools::Itertools;
 use maud::{html, Markup, DOCTYPE};
 use minijinja::{context, path_loader, Environment};
-use r2d2::PooledConnection;
 use serde::Deserialize;
 use serde_json::value;
 use std::string::String;
