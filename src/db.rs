@@ -38,14 +38,28 @@ pub async fn connect(db_url: &str) -> Result<sqlx::Pool<sqlx::Sqlite>, sqlx::Err
 
 pub async fn execute_get_all_pkg(conn: &Pool<Sqlite>) -> Result<Vec<Package>, sqlx::Error> {
     let mut pkg: Vec<Package> = Vec::new();
-    let qstring: String =
-        "SELECT * FROM packages WHERE name LIKE 'A%' ORDER BY name ASC".to_string();
-    let pkg_query: Vec<Package> = sqlx::query_as!(
-        Package,
-        "SELECT * FROM packages WHERE name LIKE 'A%' ORDER BY name ASC"
-    )
-    .fetch_all(conn)
-    .await?;
+    let mut qstring: String = String::new();
+
+    // if search_str.is_empty() {
+    //     qstring = "SELECT * FROM packages WHERE name ORDER BY name ASC".to_string();
+    // } else {
+    //     qstring = format!(
+    //         "SELECT * FROM packages WHERE name LIKE '%*{}*%' ORDER BY name ASC",
+    //         search_str
+    //     );
+    // }
+    qstring = "SELECT * FROM packages WHERE name ORDER BY name ASC".to_string();
+
+    println!("qstring: {}", qstring);
+    //  let query = sqlx::query(qstring.to_string());
+    let pkg_query: Vec<Package> =
+        sqlx::query_as!(Package, "SELECT * FROM packages ORDER BY name ASC")
+            .fetch_all(conn)
+            .await?;
+    if pkg_query.is_empty() {
+        println!("no results found");
+        panic!("something went wrong");
+    }
     Ok(pkg_query)
 }
 

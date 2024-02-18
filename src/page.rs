@@ -16,6 +16,7 @@ use actix_web::{
     web, web::Data, Error, HttpResponse, Responder, Result,
 };
 
+use hypertext::html_elements::search;
 use itertools::Itertools;
 use maud::{html, Markup, DOCTYPE};
 use minijinja::{context, path_loader, Environment};
@@ -49,25 +50,37 @@ pub async fn index(tmpl: web::Data<Template>) -> Result<HttpResponse, Error> {
 //     id: u32,
 // }
 
+#[derive(Debug, Deserialize)]
+struct SearchQuery {
+    search_term: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+struct TableData {
+    id: u32,
+}
 #[get("/page/pkgtable/{id}")]
 pub async fn page(
-    path: web::Path<(u32)>,
+    path: web::Path<TableData>,
     app_state: web::Data<AppState>,
+    search_query: web::Query<SearchQuery>,
 ) -> Result<HttpResponse, Error> {
     let pool = &app_state.db;
     let mut conn: &sqlx::Pool<sqlx::Sqlite> = pool;
     let mut pkg_list: Vec<Package>;
+
+    // let id = path.into_inner().id;
     match db::execute_get_all_pkg(&conn).await {
         Ok(x) => {
             pkg_list = x;
         }
         Err(_x) => {
-            pkg_list = Vec::new();
+            panic!("Failed to get package list");
         }
     };
 
     let pkg = chunk_slice(pkg_list, 15).await;
-    let num = path.into_inner();
+    let num = path.into_inner().id;
     //
     let mut id_prev: u32;
     if num - 1 == 0 {
@@ -101,7 +114,7 @@ pub async fn page_pkg() -> Result<HttpResponse, Error> {
         .body(rendered.into_string()))
 }
 
-async fn search() {}
+//async fn search() {}
 
 async fn package_table(
     pkg: Vec<Vec<Package>>,
