@@ -152,5 +152,6 @@ sea-query-binder = { version = "0.5.0", features = [
   "sqlx-postgres",
   "with-chrono",
 ] }
+time = "0.3.34"
 #tera = "1.19.1"
 #askama = { version = "0.12.1", features = ["with-actix-web"] }

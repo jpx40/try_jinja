@@ -1,17 +1,27 @@
-use crate::models::Package;
+use crate::models::{Packages, Pkg};
+use chrono::{NaiveDate, NaiveDateTime};
 use dotenvy::dotenv;
 use futures::TryStreamExt;
 use futures_util::TryFutureExt;
+use sea_query::{
+    ColumnDef, Expr, Func, Iden, OnConflict, Order, OrderedStatement, Query, SqliteQueryBuilder,
+    Table,
+};
+use sea_query_binder::SqlxBinder;
 use serde_json::to_vec;
+use serde_json::{json, Value as Json};
 use sqlx::sqlite::SqlitePoolOptions;
-use sqlx::sqlite::{SqliteConnection, SqlitePool};
-use sqlx::Connection;
-use sqlx::{Pool, Sqlite};
+use sqlx::sqlite::{SqliteConnection, SqlitePool, SqliteRow};
+use sqlx::{pool, Connection, Pool, Row, Sqlite};
 use std::env;
+use std::fs::File;
+use std::io::Write;
 use std::process::Command;
 use std::time::Instant;
 use std::{str, string, vec::Vec};
 use tokio;
+use uuid::Uuid;
+
 const BIND_LIMIT: usize = 32766;
 
 //https://stackoverflow.com/questions/27435839/how-to-list-active-connections-on-postgresql
@@ -36,8 +46,21 @@ pub async fn connect(db_url: &str) -> Result<sqlx::Pool<sqlx::Sqlite>, sqlx::Err
     Ok(pool)
 }
 
-pub async fn execute_get_all_pkg(conn: &Pool<Sqlite>) -> Result<Vec<Package>, sqlx::Error> {
-    let mut pkg: Vec<Package> = Vec::new();
+pub async fn execute_get_all_pkg_precice(
+    pool: &Pool<Sqlite>,
+    search_str: String,
+) -> Result<Vec<Pkg>, sqlx::Error> {
+    let (sql, values) = Query::select()
+        .columns([Packages::Name, Packages::Size, Packages::Version])
+        .from(Packages::Table)
+        .build_sqlx(SqliteQueryBuilder);
+    let rows: Vec<Pkg> = sqlx::query_as_with::<_, Pkg, _>(&sql, values.clone())
+        .fetch_all(pool)
+        .await?;
+    Ok(rows)
+}
+pub async fn execute_get_all_pkg(conn: &Pool<Sqlite>) -> Result<Vec<Pkg>, sqlx::Error> {
+    let mut pkg: Vec<Pkg> = Vec::new();
     let mut qstring: String = String::new();
 
     // if search_str.is_empty() {
@@ -52,10 +75,9 @@ pub async fn execute_get_all_pkg(conn: &Pool<Sqlite>) -> Result<Vec<Package>, sq
 
     println!("qstring: {}", qstring);
     //  let query = sqlx::query(qstring.to_string());
-    let pkg_query: Vec<Package> =
-        sqlx::query_as!(Package, "SELECT * FROM packages ORDER BY name ASC")
-            .fetch_all(conn)
-            .await?;
+    let pkg_query: Vec<Pkg> = sqlx::query_as!(Pkg, "SELECT * FROM packages ORDER BY name ASC")
+        .fetch_all(conn)
+        .await?;
     if pkg_query.is_empty() {
         println!("no results found");
         panic!("something went wrong");

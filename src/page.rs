@@ -67,7 +67,7 @@ pub async fn page(
 ) -> Result<HttpResponse, Error> {
     let pool = &app_state.db;
     let mut conn: &sqlx::Pool<sqlx::Sqlite> = pool;
-    let mut pkg_list: Vec<Package>;
+    let mut pkg_list: Vec<Pkg>;
     let id = path.into_inner().id;
     // let id = path.into_inner().id;
     match db::execute_get_all_pkg(&conn).await {
@@ -116,12 +116,7 @@ pub async fn page_pkg() -> Result<HttpResponse, Error> {
 
 //async fn search() {}
 
-async fn package_table(
-    pkg: Vec<Vec<Package>>,
-    num: u32,
-    url_prev: String,
-    url_next: String,
-) -> String {
+async fn package_table(pkg: Vec<Vec<Pkg>>, num: u32, url_prev: String, url_next: String) -> String {
     let html = html! {
         div #table  class="container mx-auto content-center justify-center" style="text-align: center;
         justify-content: center;  align-items: center;" {
@@ -153,8 +148,8 @@ async fn package_table(
     html.into_string()
 }
 
-pub async fn chunk_slice(mut pkg_list: Vec<Package>, mut chunk_size: u32) -> Vec<Vec<Package>> {
-    let mut pkg_vec: Vec<Vec<Package>> = Vec::new();
+pub async fn chunk_slice(mut pkg_list: Vec<Pkg>, mut chunk_size: u32) -> Vec<Vec<Pkg>> {
+    let mut pkg_vec: Vec<Vec<Pkg>> = Vec::new();
 
     // pkg_vec = pkg_list
     //     .iter()
