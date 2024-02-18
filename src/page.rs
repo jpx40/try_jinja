@@ -68,7 +68,7 @@ pub async fn page(
     let pool = &app_state.db;
     let mut conn: &sqlx::Pool<sqlx::Sqlite> = pool;
     let mut pkg_list: Vec<Package>;
-
+    let id = path.into_inner().id;
     // let id = path.into_inner().id;
     match db::execute_get_all_pkg(&conn).await {
         Ok(x) => {
@@ -80,26 +80,26 @@ pub async fn page(
     };
 
     let pkg = chunk_slice(pkg_list, 15).await;
-    let num = path.into_inner().id;
+
     //
     let mut id_prev: u32;
-    if num - 1 == 0 {
+    if id - 1 == 0 {
         id_prev = 1;
     } else {
-        id_prev = num - 1;
+        id_prev = id - 1;
     }
 
-    let mut id_next = num + 1;
+    let mut id_next = id + 1;
 
     let pkg_len = pkg.len() as u32;
-    if num - 1 > pkg_len {
+    if id - 1 > pkg_len {
         id_next = pkg_len;
     }
 
     let url_prev = format!("api/page/pkgtable/{}", id_prev);
     let url_next = format!("api/page/pkgtable/{}", id_next);
 
-    let rendered = package_table(pkg, num, url_prev, url_next).await;
+    let rendered = package_table(pkg, id, url_prev, url_next).await;
 
     Ok(HttpResponse::Ok()
         .content_type(ContentType::html())
